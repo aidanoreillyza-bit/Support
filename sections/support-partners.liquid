@@ -9,53 +9,103 @@
     </div>
   {%- endif -%}
 
-  {%- if section.blocks.size > 0 -%}
-    <ul class="support-partners__grid support-partners__grid--{{ section.settings.columns_desktop }}-col" role="list">
-      {%- for block in section.blocks -%}
-        <li class="support-partners__item" {{ block.shopify_attributes }}>
-          <a
-            class="support-partners__link"
-            {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% else %}role="presentation"{% endif %}
-            {% if block.settings.link != blank %}target="_blank" rel="noopener noreferrer"{% endif %}
-          >
-            {%- if block.settings.logo != blank -%}
-              {%- capture logo_sizes -%}(min-width: 990px) calc(100vw / {{ section.settings.columns_desktop }}), (min-width: 750px) calc(100vw / 3), calc(50vw){%- endcapture -%}
-              <div class="support-partners__logo-wrapper">
-                {{
-                  block.settings.logo
-                  | image_url: width: 400
-                  | image_tag:
-                    class: "support-partners__logo",
-                    widths: "100, 200, 300, 400",
-                    sizes: logo_sizes,
-                    alt: block.settings.partner_name | escape
-                }}
-              </div>
-            {%- elsif block.settings.logo_url != blank -%}
-              <div class="support-partners__logo-wrapper">
-                <img
-                  class="support-partners__logo"
-                  src="{{ block.settings.logo_url }}"
-                  alt="{{ block.settings.partner_name | escape }}"
-                  loading="lazy"
-                  width="200"
-                  height="133"
-                >
-              </div>
-            {%- else -%}
-              <div class="support-partners__logo-wrapper support-partners__logo-wrapper--placeholder">
-                {{ 'image' | placeholder_svg_tag: 'support-partners__placeholder' }}
-              </div>
-            {%- endif -%}
+  <ul class="support-partners__grid support-partners__grid--{{ section.settings.columns_desktop }}-col" role="list">
 
-            {%- if block.settings.partner_name != blank -%}
-              <span class="support-partners__name">{{ block.settings.partner_name | escape }}</span>
-            {%- endif -%}
-          </a>
-        </li>
-      {%- endfor -%}
-    </ul>
-  {%- endif -%}
+    {%- comment -%} ── Hardcoded Panthers partners (always visible) ── {%- endcomment -%}
+    <li class="support-partners__item">
+      <a class="support-partners__link" href="https://www.nhl.com/panthers" target="_blank" rel="noopener noreferrer">
+        <div class="support-partners__logo-wrapper">
+          <img
+            class="support-partners__logo"
+            src="https://upload.wikimedia.org/wikipedia/en/4/43/Florida_Panthers_2016.svg"
+            alt="Florida Panthers"
+            loading="lazy"
+            width="200"
+            height="133"
+          >
+        </div>
+        <span class="support-partners__name">Florida Panthers</span>
+      </a>
+    </li>
+
+    <li class="support-partners__item">
+      <a class="support-partners__link" href="https://www.panthers.com" target="_blank" rel="noopener noreferrer">
+        <div class="support-partners__logo-wrapper">
+          <img
+            class="support-partners__logo"
+            src="https://upload.wikimedia.org/wikipedia/en/1/1c/Carolina_Panthers_logo.svg"
+            alt="Carolina Panthers"
+            loading="lazy"
+            width="200"
+            height="133"
+          >
+        </div>
+        <span class="support-partners__name">Carolina Panthers</span>
+      </a>
+    </li>
+
+    <li class="support-partners__item">
+      <a class="support-partners__link" href="https://www.penrithpanthers.com.au" target="_blank" rel="noopener noreferrer">
+        <div class="support-partners__logo-wrapper">
+          <img
+            class="support-partners__logo"
+            src="https://upload.wikimedia.org/wikipedia/en/7/7b/Penrith_Panthers_logo.svg"
+            alt="Penrith Panthers"
+            loading="lazy"
+            width="200"
+            height="133"
+          >
+        </div>
+        <span class="support-partners__name">Penrith Panthers</span>
+      </a>
+    </li>
+
+    {%- comment -%} ── Additional partners added via the theme editor ── {%- endcomment -%}
+    {%- for block in section.blocks -%}
+      <li class="support-partners__item" {{ block.shopify_attributes }}>
+        <a
+          class="support-partners__link"
+          {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% else %}role="presentation"{% endif %}
+          {% if block.settings.link != blank %}target="_blank" rel="noopener noreferrer"{% endif %}
+        >
+          {%- if block.settings.logo != blank -%}
+            {%- capture logo_sizes -%}(min-width: 990px) calc(100vw / {{ section.settings.columns_desktop }}), (min-width: 750px) calc(100vw / 3), calc(50vw){%- endcapture -%}
+            <div class="support-partners__logo-wrapper">
+              {{
+                block.settings.logo
+                | image_url: width: 400
+                | image_tag:
+                  class: "support-partners__logo",
+                  widths: "100, 200, 300, 400",
+                  sizes: logo_sizes,
+                  alt: block.settings.partner_name | escape
+              }}
+            </div>
+          {%- elsif block.settings.logo_url != blank -%}
+            <div class="support-partners__logo-wrapper">
+              <img
+                class="support-partners__logo"
+                src="{{ block.settings.logo_url }}"
+                alt="{{ block.settings.partner_name | escape }}"
+                loading="lazy"
+                width="200"
+                height="133"
+              >
+            </div>
+          {%- else -%}
+            <div class="support-partners__logo-wrapper support-partners__logo-wrapper--placeholder">
+              {{ 'image' | placeholder_svg_tag: 'support-partners__placeholder' }}
+            </div>
+          {%- endif -%}
+
+          {%- if block.settings.partner_name != blank -%}
+            <span class="support-partners__name">{{ block.settings.partner_name | escape }}</span>
+          {%- endif -%}
+        </a>
+      </li>
+    {%- endfor -%}
+
+  </ul>
 </div>
 
 <style>
